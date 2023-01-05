@@ -24,7 +24,7 @@ export async function requestGenerateImage(prompt: string, number: number, size:
     // const openai = new OpenAIApi(configuration);
 
     const headers = {
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
       Authorization: `Bearer ${validatedToken}`,
     };
 
