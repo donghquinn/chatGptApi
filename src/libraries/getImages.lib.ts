@@ -62,11 +62,11 @@ export async function requestGenerateImage(prompt: string, number: number, size:
 
     return imgUrlArray;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      Logger.error(`[GENERATE] Axios Error: ${error.message}`);
+    // if (axios.isAxiosError(error)) {
+    //   Logger.error(`[GENERATE] Axios Error: ${error.message}`);
 
-      throw new AxiosError(`[GENEREATE]`, `AXIOS ERROR ${error.message}`);
-    }
+    //   throw new AxiosError(`[GENEREATE]`, `AXIOS ERROR ${error.message}`);
+    // }
 
     Logger.error(`[GENERATE] Request Failed: ${JSON.stringify(error)}`);
 
