@@ -25,6 +25,7 @@ export async function requestGenerateImage(prompt: string, number: number, size:
 
     const headers = {
       'Content-Type': 'application/json',
+      withCredentials: true,
       Authorization: `Bearer ${validatedToken}`,
     };
 
