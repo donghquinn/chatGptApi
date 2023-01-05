@@ -48,9 +48,7 @@ export async function requestGenerateImage(prompt: string, number: number, size:
     // const img = await openai.createImage(config, resquestConfig);
 
     const response = await axios.post<ImagesResponse>(validatedUrl, {
-      prompt,
-      n: number,
-      size,
+      data: { prompt, n: number, size },
       headers,
     });
 
