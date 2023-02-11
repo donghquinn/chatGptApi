@@ -4,8 +4,11 @@ import { Logger } from 'utilities/logger.utils';
 
 export const middleware = async (ctx: DefaultCtx, next: Next) => {
   try {
-    const { clientid } = ctx;
-    Logger.info('Received ClientId from Context: %o', { clientid });
+    if (!ctx.request.body) {
+      Logger.info('Request Body Is Empty / undefined. Ignore');
+
+      return;
+    }
 
     return await next();
   } catch (error: unknown) {
