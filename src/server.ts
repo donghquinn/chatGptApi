@@ -1,12 +1,12 @@
-import Koa from 'koa';
-import json from 'koa-json';
-import cors from 'koa-cors';
-import bodyparser from 'koa-bodyparser';
-import helmet from 'koa-helmet';
-import logger from 'koa-logger';
 import { Server } from 'http';
-import { Logger, apiLogger } from 'utilities/logger.utils';
+import Koa from 'koa';
+import bodyparser from 'koa-bodyparser';
+import cors from 'koa-cors';
+import helmet from 'koa-helmet';
+import json from 'koa-json';
+import logger from 'koa-logger';
 import { routerV1 } from 'routes/img';
+import { Logger, apiLogger } from 'utilities/logger.utils';
 
 export class KoaServer {
   private koa: Koa;
