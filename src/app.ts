@@ -1,7 +1,11 @@
 import './env';
 
-import { KoaServer } from 'server';
+const bootstrap = async () => {
+  const { KoaServer } = await import('./server');
 
-const server = new KoaServer();
+  const server = new KoaServer();
 
-server.start();
+  server.start();
+};
+
+await bootstrap();
