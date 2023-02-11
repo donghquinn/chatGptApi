@@ -39,7 +39,6 @@ export class KoaServer {
       this.attachMiddleware();
 
       this.server = this.koa.listen(this.port, () => {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         const message = `[SERVER] Server is Listening On ${process.env.APP_PORT}`;
         const wrapChar = '@'.repeat(message.length);
 
