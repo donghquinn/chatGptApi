@@ -7,7 +7,7 @@ export const middleware = async (ctx: DefaultCtx, next: Next) => {
     const { clientid } = ctx;
     Logger.info('Received ClientId from Context: %o', { clientid });
 
-    await next();
+    return await next();
   } catch (error: unknown) {
     throw new Error(`Received Middleware Error: ${error}`);
   }
