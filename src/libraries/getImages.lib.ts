@@ -34,8 +34,8 @@ export async function requestGenerateImage(prompt: string, number: number, size:
     };
 
     const response = await axios.post<ImagesResponse>(validatedUrl, {
-      data: { prompt, n: number, size },
       headers,
+      bodyData,
     });
 
     const { data } = response;
