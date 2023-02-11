@@ -41,11 +41,11 @@ export async function requestGenerateImage(prompt: string, number: number, size:
       }),
     };
 
-    const response = await (await fetch(validatedUrl, options)).json();
+    const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
 
     Logger.info('Response: %o', { response });
 
-    const { data } = response as ImagesResponse;
+    const { data } = response;
 
     Logger.info('Data: %o', { data });
 
@@ -53,7 +53,7 @@ export async function requestGenerateImage(prompt: string, number: number, size:
 
     return imgUrlArray;
   } catch (error) {
-    Logger.error(`[GENERATE] Request Failed: ${error}`);
+    Logger.error(`[GENERATE] Request Failed: %o`, error instanceof Error ? error : new Error(JSON.stringify(error)));
 
     throw new ImageError(
       `[GENERATE]`,
