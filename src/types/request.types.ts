@@ -3,10 +3,7 @@ import { Context } from 'koa';
 export type DefaultCtx = GenerateImage;
 
 export interface GenerateImage extends Context {
-  prompt: string;
-  number: string;
-  size: SizeTypes;
-  body: ResponseBody;
+  clientid: string;
 }
 
 export type ResponseBody = {
