@@ -6,8 +6,10 @@ import { DefaultCtx } from 'types/request.types';
 
 const generateRouter = new Router<DefaultState, DefaultCtx>();
 
-generateRouter.post('/img', middleware, async (ctx) => {
+generateRouter.post('/img', async (ctx, next: Next) => {
   await generateControllers(ctx);
+
+  await next();
 });
 
 export { generateRouter };

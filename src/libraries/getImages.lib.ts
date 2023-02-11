@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import fetch from 'node-fetch';
 import { Configuration, ImagesResponse, OpenAIApi } from 'openai';
 import { RequestTypes, SizeTypes } from 'types/request.types';
 import { Logger } from 'utilities/logger.utils';
@@ -20,32 +21,40 @@ export async function requestGenerateImage(prompt: string, number: number, size:
     const { token: validatedToken, url: validatedUrl } = await tokenAndUrlValidator(token, url);
 
     const headers = {
-      'Content-Type': 'application/json',
-      withCredentials: true,
-      Authorization: `Bearer ${validatedToken}`,
+      'content-type': 'application/json',
+
+      authorization: `Bearer ${validatedToken}`,
     };
 
     Logger.info(JSON.stringify(headers));
 
-    const bodyData = {
-      prompt: prompt,
-      n: number,
-      size: size,
+    const options = {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({
+        // id: 'HTTP_FIXED',
+        // withcredentials: true,
+        prompt: prompt,
+        n: number,
+        size: size,
+      }),
     };
 
-    const response = await axios.post<ImagesResponse>(validatedUrl, {
-      headers,
-      bodyData,
-    });
+    const response = await (await fetch(validatedUrl, options)).json();
 
-    const { data } = response;
+    Logger.info('Response: %o', { response });
 
-    imgUrlArray.push(...data.data);
+    const { data } = response as ImagesResponse;
+    // const { data } = response;
+
+    Logger.info('Data: %o', { data });
+
+    imgUrlArray.push(...data);
 
     return imgUrlArray;
   } catch (error) {
-    Logger.error(`[GENERATE] Request Failed: ${JSON.stringify(error)}`);
+    Logger.error(`[GENERATE] Request Failed: ${error}`);
 
-    throw new Error(`[GENERATE] Request Failed: ${JSON.stringify(error)}`);
+    throw new Error(`[GENERATE] Request Failed: ${error}`);
   }
 }
