@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { ImageError } from 'error/img.error';
 import fetch from 'node-fetch';
 import { Configuration, ImagesResponse, OpenAIApi } from 'openai';
 import { RequestTypes, SizeTypes } from 'types/request.types';
@@ -45,7 +46,6 @@ export async function requestGenerateImage(prompt: string, number: number, size:
     Logger.info('Response: %o', { response });
 
     const { data } = response as ImagesResponse;
-    // const { data } = response;
 
     Logger.info('Data: %o', { data });
 
@@ -55,6 +55,10 @@ export async function requestGenerateImage(prompt: string, number: number, size:
   } catch (error) {
     Logger.error(`[GENERATE] Request Failed: ${error}`);
 
-    throw new Error(`[GENERATE] Request Failed: ${error}`);
+    throw new ImageError(
+      `[GENERATE]`,
+      'Request Failed',
+      error instanceof Error ? error : new Error(JSON.stringify(error)),
+    );
   }
 }
