@@ -1,9 +1,8 @@
-import axios, { AxiosError } from 'axios';
 import { ImageError } from 'error/img.error';
 import fetch from 'node-fetch';
-import { Configuration, ImagesResponse, OpenAIApi } from 'openai';
-import { RequestTypes, SizeTypes } from 'types/request.types';
-import { Logger } from 'utilities/logger.utils';
+import { ImagesResponse } from 'openai';
+import { SizeTypes } from 'types/request.types';
+import { ImageLogger } from 'utilities/logger.utils';
 import { tokenAndUrlValidator } from 'validators/generate.validator';
 
 /**
@@ -27,8 +26,6 @@ export async function requestGenerateImage(prompt: string, number: number, size:
       authorization: `Bearer ${validatedToken}`,
     };
 
-    Logger.info(JSON.stringify(headers));
-
     const options = {
       headers,
       method: 'POST',
@@ -45,13 +42,16 @@ export async function requestGenerateImage(prompt: string, number: number, size:
 
     const { data } = response;
 
-    Logger.info('Data: %o', { data });
+    ImageLogger.info('Data: %o', { data });
 
     imgUrlArray.push(...data);
 
     return imgUrlArray;
   } catch (error) {
-    Logger.error(`[GENERATE] Request Failed: %o`, error instanceof Error ? error : new Error(JSON.stringify(error)));
+    ImageLogger.error(
+      `[GENERATE] Request Failed: %o`,
+      error instanceof Error ? error : new Error(JSON.stringify(error)),
+    );
 
     throw new ImageError(
       `[GENERATE]`,

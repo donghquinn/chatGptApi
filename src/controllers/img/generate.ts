@@ -1,6 +1,6 @@
 import { requestGenerateImage } from 'libraries/img/getImages.lib';
-import { DefaultCtx, RequestTypes } from 'types/request.types';
-import { Logger } from 'utilities/logger.utils';
+import { DefaultCtx } from 'types/request.types';
+import { ImageLogger } from 'utilities/logger.utils';
 import { setErrorResponse, setResponse } from 'utilities/response.utils';
 import { requestBodyValidator } from 'validators/request.validator';
 
@@ -8,7 +8,7 @@ export async function generateImage(ctx: DefaultCtx) {
   try {
     const { prompt, number, size } = await requestBodyValidator(ctx);
 
-    Logger.info('Received Request');
+    ImageLogger.info('Received Request');
 
     const imageUrls = await requestGenerateImage(prompt, number, size);
 
