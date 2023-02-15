@@ -1,4 +1,4 @@
-import { requestGenerateImage } from 'libraries/getImages.lib';
+import { requestGenerateImage } from 'libraries/img/getImages.lib';
 import { DefaultCtx, RequestTypes } from 'types/request.types';
 import { Logger } from 'utilities/logger.utils';
 import { setErrorResponse, setResponse } from 'utilities/response.utils';
