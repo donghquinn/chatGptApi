@@ -4,7 +4,7 @@ declare global {
       APP_PORT: string;
       NODE_ENV: string;
 
-      API_TOKEN: string;
+      CHATGPT_API_TOKEN: string;
       CHATGPT_URL: string;
     }
   }
