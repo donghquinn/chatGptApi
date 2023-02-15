@@ -4,7 +4,7 @@ import { Logger } from 'utilities/logger.utils';
 import { setErrorResponse, setResponse } from 'utilities/response.utils';
 import { requestBodyValidator } from 'validators/request.validator';
 
-export async function generateControllers(ctx: DefaultCtx) {
+export async function generateImage(ctx: DefaultCtx) {
   try {
     const { prompt, number, size } = await requestBodyValidator(ctx);
 
