@@ -1,3 +1,6 @@
 .env
 .eslintrc.json
 .prettierrc
+.gitignore
+.prettierrc
+example.env

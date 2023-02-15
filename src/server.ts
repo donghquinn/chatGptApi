@@ -5,7 +5,7 @@ import cors from 'koa-cors';
 import helmet from 'koa-helmet';
 import json from 'koa-json';
 import logger from 'koa-logger';
-import { routerV1 } from 'routes/img';
+import { imageRouter } from 'routes/img';
 import { Logger, apiLogger } from 'utilities/logger.utils';
 
 export class KoaServer {
@@ -30,8 +30,8 @@ export class KoaServer {
     this.koa.use(bodyparser());
     this.koa.use(logger((str) => apiLogger.info(str)));
 
-    this.koa.use(routerV1.routes());
-    this.koa.use(routerV1.allowedMethods());
+    this.koa.use(imageRouter.routes());
+    this.koa.use(imageRouter.allowedMethods());
   }
 
   start() {
