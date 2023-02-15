@@ -7,9 +7,10 @@ import { tokenAndUrlValidator } from 'validators/generate.validator';
 
 /**
  * 이미지 생성 요청
- * promt: 이미지 요청 내용
- * number: 생성할 이미지 개수
- * size: 이미지 사이즈
+ * @param promt: 이미지 요청 내용
+ * @param number: 생성할 이미지 개수
+ * @param size: 이미지 사이즈
+ * @returns img url
  */
 export async function requestGenerateImage(prompt: string, number: number, size: SizeTypes) {
   const url = process.env.CHATGPT_URL!;

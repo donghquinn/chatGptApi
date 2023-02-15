@@ -49,7 +49,7 @@ export class KoaServer {
       return;
     }
 
-    apiLogger.info('[SERVER] Server Already Started. Igrnored');
+    Logger.info('[SERVER] Server Already Started. Igrnored');
   }
 
   stop() {
