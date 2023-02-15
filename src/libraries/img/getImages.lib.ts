@@ -22,7 +22,6 @@ export async function requestGenerateImage(prompt: string, number: number, size:
 
     const headers = {
       'content-type': 'application/json',
-
       authorization: `Bearer ${validatedToken}`,
     };
 
