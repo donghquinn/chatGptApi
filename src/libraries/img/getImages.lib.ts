@@ -43,8 +43,6 @@ export async function requestGenerateImage(prompt: string, number: number, size:
 
     const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
 
-    Logger.info('Response: %o', { response });
-
     const { data } = response;
 
     Logger.info('Data: %o', { data });

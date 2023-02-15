@@ -15,37 +15,21 @@ const formatted = printf(({ level, message, timestamp }) => `${timestamp} ${leve
 class WinstonLogger {
   private static instance: WinstonLogger;
 
-  private parseLogger: Winston.Logger;
+  private imageLogger: Winston.Logger;
 
   private logger: Winston.Logger;
-
-  private fetchLogger: Winston.Logger;
 
   private apiLogger: Winston.Logger;
 
   private constructor() {
-    this.fetchLogger = Winston.createLogger({
+    this.imageLogger = Winston.createLogger({
       format: combine(splat(), json(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
       transports: [
         new WinstonDaily({
           level: 'debug',
           datePattern: 'YYYY-MM-DD',
           dirname: path.join(dirName, '..', 'logs'),
-          filename: '%DATE%.fetch.log',
-          maxFiles: 30,
-          zippedArchive: true,
-        }),
-      ],
-    });
-
-    this.parseLogger = Winston.createLogger({
-      format: combine(splat(), json(), defaultTimestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), formatted),
-      transports: [
-        new WinstonDaily({
-          level: 'debug',
-          datePattern: 'YYYY-MM-DD',
-          dirname: path.join(dirName, '..', 'logs'),
-          filename: '%DATE%.parser.log',
+          filename: '%DATE%.image.log',
           maxFiles: 30,
           zippedArchive: true,
         }),
@@ -103,14 +87,14 @@ class WinstonLogger {
     }
 
     return {
-      ParseLogger: this.instance.parseLogger,
+      ImageLogger: this.instance.imageLogger,
       Logger: this.instance.logger,
-      FetchLogger: this.instance.fetchLogger,
+
       apiLogger: this.instance.apiLogger,
     };
   }
 }
 
-const { ParseLogger, Logger, FetchLogger, apiLogger } = WinstonLogger.getInstance();
+const { ImageLogger, Logger, apiLogger } = WinstonLogger.getInstance();
 
-export { ParseLogger, Logger, FetchLogger, apiLogger };
+export { ImageLogger, Logger, apiLogger };
