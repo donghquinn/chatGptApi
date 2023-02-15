@@ -13,7 +13,7 @@ import { tokenAndUrlValidator } from 'validators/generate.validator';
  */
 export async function requestGenerateImage(prompt: string, number: number, size: SizeTypes) {
   const url = process.env.CHATGPT_URL!;
-  const token = process.env.API_TOKEN!;
+  const token = process.env.CHATGPT_API_TOKEN!;
 
   const imgUrlArray = [];
 
