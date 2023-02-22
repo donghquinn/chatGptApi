@@ -9,7 +9,7 @@ export interface GenerateImage extends Context {
 export type ResponseBody = {
   resCode: string;
   dataRes: KeyableObject | null;
-  errMsg: string | string[];
+  errMsg: string[];
 };
 
 export interface KeyableObject {
