@@ -7,12 +7,16 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon --exec node -r  ts-node/register -r dotenv/config --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/app.ts",
     "build": "NODE_ENV=development tsc --project tsconfig.json --diagnostics -p tsconfig.json",
-    "start": "NODE_ENV=production node -r  ts-node/register -r dotenv/config --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/app.ts"
+    "start": "NODE_ENV=production node -r  ts-node/register -r dotenv/config --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/app.ts",
+    "migrate": "prisma migrate dev --schema=./src/assets/schema.prisma --name chatGpt",
+    "schema": "prisma generate",
+    "prisma:init": "prisma init"
   },
   "dependencies": {
     "@nestjs/common": "^9.3.9",
     "@nestjs/core": "^9.3.9",
     "@nestjs/platform-express": "^9.3.9",
+    "@prisma/client": "^4.10.1",
     "axios": "^1.2.2",
     "dotenv": "^16.0.3",
     "helmet": "^6.0.1",
