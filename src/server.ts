@@ -1,66 +1,23 @@
-import { Server } from 'http';
-import Koa from 'koa';
-import bodyparser from 'koa-bodyparser';
-import cors from 'koa-cors';
-import helmet from 'koa-helmet';
-import json from 'koa-json';
-import logger from 'koa-logger';
-import { imageRouter } from 'routes/img';
-import { Logger, apiLogger } from 'utilities/logger.utils';
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { ImageModule } from 'module/image.module';
 
-export class KoaServer {
-  private koa: Koa;
+export const bootstrap = async () => {
+  const port = process.env.APP_PORT!;
 
-  private server: Server | null;
+  const app = await NestFactory.create<NestExpressApplication>(ImageModule);
 
-  private port: number;
+  app.enableVersioning();
+  app.useBodyParser('json');
+  app.enableCors({ credentials: true });
 
-  constructor() {
-    this.koa = new Koa();
+  await app.listen(port);
 
-    this.server = null;
+  const message = 'Server Started';
+  const wrapper = '@'.repeat(message.length);
 
-    this.port = Number(process.env.APP_PORT);
-  }
-
-  attachMiddleware() {
-    this.koa.use(helmet());
-    this.koa.use(cors());
-    this.koa.use(json());
-    this.koa.use(bodyparser());
-    this.koa.use(logger((str) => apiLogger.info(str)));
-
-    this.koa.use(imageRouter.routes());
-    this.koa.use(imageRouter.allowedMethods());
-  }
-
-  start() {
-    if (!this.server) {
-      this.attachMiddleware();
-
-      this.server = this.koa.listen(this.port, () => {
-        const message = `[SERVER] Server is Listening On ${process.env.APP_PORT}`;
-        const wrapChar = '@'.repeat(message.length);
-
-        Logger.info(wrapChar);
-        Logger.info(message);
-        Logger.info(wrapChar);
-      });
-      return;
-    }
-
-    Logger.info('[SERVER] Server Already Started. Igrnored');
-  }
-
-  stop() {
-    if (this.server) {
-      const listening = this.server;
-
-      if (listening) {
-        this.server.close();
-
-        Logger.info('[SERVER] Server Closed');
-      }
-    }
-  }
-}
+  Logger.log(wrapper);
+  Logger.log(message);
+  Logger.log(wrapper);
+};

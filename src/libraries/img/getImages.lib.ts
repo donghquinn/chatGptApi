@@ -1,9 +1,11 @@
+import { Injectable } from '@nestjs/common';
 import { ImageError } from 'error/img.error';
 import fetch from 'node-fetch';
 import { ImagesResponse } from 'openai';
 import { SizeTypes } from 'types/request.types';
 import { ImageLogger } from 'utilities/logger.utils';
 import { tokenAndUrlValidator } from 'validators/generate.validator';
+import { PrismaLibrary } from './prisma/prisma.lib';
 
 /**
  * 이미지 생성 요청
@@ -12,51 +14,56 @@ import { tokenAndUrlValidator } from 'validators/generate.validator';
  * @param size: 이미지 사이즈
  * @returns img url
  */
-export async function requestGenerateImage(prompt: string, number: number, size: SizeTypes) {
-  const url = process.env.CHATGPT_URL!;
-  const token = process.env.CHATGPT_API_TOKEN!;
+@Injectable()
+export class GenerateImage {
+  constructor(private prisma: PrismaLibrary) {}
 
-  const imgUrlArray = [];
+  async requestGenerateImage(prompt: string, number: number, size: SizeTypes) {
+    const url = process.env.CHATGPT_URL!;
+    const token = process.env.CHATGPT_API_TOKEN!;
 
-  try {
-    const { token: validatedToken, url: validatedUrl } = await tokenAndUrlValidator(token, url);
+    const imgUrlArray = [];
 
-    const headers = {
-      'content-type': 'application/json',
-      authorization: `Bearer ${validatedToken}`,
-    };
+    try {
+      const { token: validatedToken, url: validatedUrl } = await tokenAndUrlValidator(token, url);
 
-    const options = {
-      headers,
-      method: 'POST',
-      body: JSON.stringify({
-        // id: 'HTTP_FIXED',
-        // withcredentials: true,
-        prompt: prompt,
-        n: number,
-        size: size,
-      }),
-    };
+      const headers = {
+        'content-type': 'application/json',
+        authorization: `Bearer ${validatedToken}`,
+      };
 
-    const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
+      const options = {
+        headers,
+        method: 'POST',
+        body: JSON.stringify({
+          prompt: prompt,
+          n: number,
+          size: size,
+        }),
+      };
 
-    const { data } = response;
+      const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
 
-    ImageLogger.info('Data: %o', { data });
+      const { data } = response;
 
-    imgUrlArray.push(...data);
+      ImageLogger.info('Data: %o', { data });
 
-    return imgUrlArray;
-  } catch (error) {
-    ImageLogger.error(
-      `[GENERATE] Request Failed: %o`,
-      error instanceof Error ? error : new Error(JSON.stringify(error)),
-    );
+      imgUrlArray.push(...data);
 
-    throw new ImageError(
-      `[GENERATE]`,
-      'Request Failed',
-      error instanceof Error ? error : new Error(JSON.stringify(error)),
-    );
+      await this.prisma.history.create({ data: { prompt, size, number, img: imgUrlArray.toString() } });
+
+      return imgUrlArray;
+    } catch (error) {
+      ImageLogger.error(
+        `[GENERATE] Request Failed: %o`,
+        error instanceof Error ? error : new Error(JSON.stringify(error)),
+      );
+
+      throw new ImageError(
+        `[GENERATE]`,
+        'Request Failed',
+        error instanceof Error ? error : new Error(JSON.stringify(error)),
+      );
+    }
   }
 }
