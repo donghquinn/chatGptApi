@@ -15,7 +15,7 @@ model Image {
   prompt  String
   number  Int
   size    String
-  img     String
+  img     String[]
   user    Users[]
   created DateTime @default(now())
 }
