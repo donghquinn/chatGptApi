@@ -50,7 +50,8 @@ export class GenerateImage {
 
       imgUrlArray.push(...data);
 
-      await this.prisma.history.create({data: })
+      await this.prisma.history.create({ data: { prompt, size, number, img: imgUrlArray.toString() } });
+
       return imgUrlArray;
     } catch (error) {
       ImageLogger.error(
