@@ -10,13 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model History {
+model Image {
   uuid    String   @id @default(uuid())
   prompt  String
   number  Int
   size    String
   img     String
+  user    Users[]
   created DateTime @default(now())
+}
+
+model Users {
+  uuid     String   @id @default(uuid())
+  clientid String
+  history  Image    @relation(fields: [clientid], references: [uuid])
+  created  DateTime @default(now())
+  updated  DateTime @updatedAt
 }
 
 enum Role {
