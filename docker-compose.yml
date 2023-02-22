@@ -1,21 +1,5 @@
----
-version: '3.7'
+version: "3.7"
 services:
-  gpt:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    container_name: gpt
-    restart: always
-    volumes:
-      - ./log:/home/node/src/logs
-    expose:
-      - 5543
-    env_file:
-      - .env
-    networks:
-      - proxy
-
   db:
     image: postgres:15-alpine3.17
     ports:
@@ -26,6 +10,23 @@ services:
       - .postgres.env
     volumes:
       - ./blogData:/var/lib/postgresql/data
+  
+  app:
+    depends_on: 
+      - db
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: gpt
+    env_file:
+      - .env
+    expose:
+      - 5864
+    volumes:
+      - ./logs:/home/node/logs
+    networks:
+      - proxy
+
 networks:
   proxy:
     external: true
