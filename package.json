@@ -10,7 +10,8 @@
     "start": "NODE_ENV=production node -r  ts-node/register -r dotenv/config --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/app.ts",
     "migrate": "prisma migrate dev --schema=./src/assets/schema.prisma --name chatGpt",
     "schema": "prisma generate",
-    "prisma:init": "prisma init"
+    "prisma:init": "prisma init",
+    "prisma:deploy": "prisma deploy"
   },
   "dependencies": {
     "@nestjs/common": "^9.3.9",

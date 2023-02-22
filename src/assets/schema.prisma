@@ -12,7 +12,9 @@ datasource db {
 
 model History {
   uuid    String   @id @default(uuid())
-  params  String
+  prompt  String
+  number  Int
+  size    String
   img     String
   created DateTime @default(now())
 }
