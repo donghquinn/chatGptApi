@@ -21,7 +21,7 @@ services:
     ports:
       - 7432:5432
     restart: always
-    container_name: gpt_db
+    container_name: gptdb
     env_file:
       - .postgres.env
     volumes:
