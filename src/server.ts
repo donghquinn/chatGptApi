@@ -1,15 +1,16 @@
 import { Logger } from '@nestjs/common';
-import { NestApplication, NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { ImageModule } from 'module/image.module';
-import helmet from 'helmet';
 
 export const bootstrap = async () => {
   const port = process.env.APP_PORT!;
 
-  const app = await NestFactory.create<NestApplication>(ImageModule);
+  const app = await NestFactory.create<NestExpressApplication>(ImageModule);
 
-  app.use(helmet());
+  app.enableVersioning();
   app.useBodyParser('json');
+  app.enableCors({ credentials: true });
 
   await app.listen(port);
 
