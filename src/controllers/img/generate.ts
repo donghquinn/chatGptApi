@@ -14,6 +14,7 @@ export class GenerateImageController {
       const { prompt, number, size } = await requestBodyValidator(request);
 
       const result = await this.generateImage.requestGenerateImage(prompt, number, size);
+
       return new SetResponse(200, { ...result });
     } catch (error) {
       return new SetErrorResponse(500, error);

@@ -5,6 +5,7 @@ import { ImagesResponse } from 'openai';
 import { SizeTypes } from 'types/request.types';
 import { ImageLogger } from 'utilities/logger.utils';
 import { tokenAndUrlValidator } from 'validators/generate.validator';
+import { PrismaLibrary } from './prisma/prisma.lib';
 
 /**
  * 이미지 생성 요청
@@ -15,6 +16,8 @@ import { tokenAndUrlValidator } from 'validators/generate.validator';
  */
 @Injectable()
 export class GenerateImage {
+  constructor(private prisma: PrismaLibrary) {}
+
   async requestGenerateImage(prompt: string, number: number, size: SizeTypes) {
     const url = process.env.CHATGPT_URL!;
     const token = process.env.CHATGPT_API_TOKEN!;
