@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Image {
-  uuid    String   @id @default(uuid())
+  uuid    String   @id @unique @default(uuid())
   prompt  String
   number  Int
   size    String
