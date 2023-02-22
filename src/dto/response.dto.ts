@@ -19,6 +19,7 @@ export class SetResponse implements ResponseBody {
 export class SetErrorResponse implements ResponseBody {
   constructor(resCode: number, error: unknown) {
     const errorMessgaeArray = [];
+
     if (error instanceof ZodError) {
       errorMessgaeArray.push(error.name, error.message);
     }
@@ -27,10 +28,13 @@ export class SetErrorResponse implements ResponseBody {
       errorMessgaeArray.push(error.type, error.message);
     }
 
+    if (typeof error === 'string') errorMessgaeArray.push(error);
+
     this.resCode = resCode.toString();
     this.dataRes = null;
     this.errMsg = errorMessgaeArray;
   }
+
   resCode: string;
   dataRes: null;
   errMsg: string[];
