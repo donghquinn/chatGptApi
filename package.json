@@ -8,7 +8,7 @@
     "dev": "NODE_ENV=development nodemon --exec node -r  ts-node/register -r dotenv/config --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/app.ts",
     "build": "NODE_ENV=development tsc --project tsconfig.json --diagnostics -p tsconfig.json",
     "start": "NODE_ENV=production node -r  ts-node/register -r dotenv/config --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/app.ts",
-    "migrate": "prisma migrate dev --schema=./src/assets/schema.prisma --name chatGpt",
+    "migrate": "prisma migrate dev --schema=./src/assets/schema.prisma --name chatgpt",
     "schema": "prisma generate"
   },
   "dependencies": {
