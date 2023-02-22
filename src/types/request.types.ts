@@ -23,4 +23,10 @@ export interface RequestTypes {
   size: SizeTypes;
 }
 
+export interface RequestValidateType {
+  prompt: string;
+  number: number;
+  size: SizeTypes;
+}
+
 export type SizeTypes = '256x256' | '512x512' | '1024x1024';
