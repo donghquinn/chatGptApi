@@ -15,5 +15,9 @@ model History {
   params  String
   img     String
   created DateTime @default(now())
-  updated DateTime @updatedAt
+}
+
+enum Role {
+  admin
+  user
 }
