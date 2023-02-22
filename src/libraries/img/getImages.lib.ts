@@ -33,8 +33,6 @@ export class GenerateImage {
         headers,
         method: 'POST',
         body: JSON.stringify({
-          // id: 'HTTP_FIXED',
-          // withcredentials: true,
           prompt: prompt,
           n: number,
           size: size,
