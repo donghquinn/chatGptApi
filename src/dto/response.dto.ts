@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ImageError } from 'error/img.error';
 import { KeyableObject, ResponseBody } from 'types/request.types';
 import { ZodError } from 'zod';
 
@@ -21,6 +22,11 @@ export class SetErrorResponse implements ResponseBody {
     if (error instanceof ZodError) {
       errorMessgaeArray.push(error.name, error.message);
     }
+
+    if (error instanceof ImageError) {
+      errorMessgaeArray.push(error.type, error.message);
+    }
+
     this.resCode = resCode.toString();
     this.dataRes = null;
     this.errMsg = errorMessgaeArray;
