@@ -28,7 +28,7 @@ model Users {
   updated  DateTime @updatedAt
 }
 
-enum Role {
+enum RoleEnumType {
   admin
   user
 }
