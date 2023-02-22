@@ -10,7 +10,7 @@ services:
     volumes:
       - ./log:/home/node/src/logs
     expose:
-      - 4000
+      - 5543
     env_file:
       - .env
     networks:
