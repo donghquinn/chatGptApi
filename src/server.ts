@@ -1,14 +1,10 @@
-import { NestFactory } from '@nestjs/core';
-import { Server } from 'http';
-import Koa from 'koa';
-import bodyparser from 'koa-bodyparser';
-import cors from 'koa-cors';
-import helmet from 'koa-helmet';
-import json from 'koa-json';
-import logger from 'koa-logger';
-import { imageRouter } from 'routes/img';
-import { Logger, apiLogger } from 'utilities/logger.utils';
+import { NestApplication, NestFactory } from '@nestjs/core';
+import { ImageModule } from 'module/image.module';
 
 export const bootstrap = async () => {
-  const app = await NestFactory.create();
+  const port = process.env.APP_PORT!;
+
+  const app = await NestFactory.create<NestApplication>(ImageModule);
+
+  app.listen(port);
 };
