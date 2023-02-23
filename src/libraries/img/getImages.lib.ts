@@ -25,6 +25,10 @@ export class GenerateImage {
     const imgUrlArray = [];
 
     try {
+      if (number > 5) {
+        return ['Too many Requests. No more than 4'];
+      }
+
       const { token: validatedToken, url: validatedUrl } = await tokenAndUrlValidator(token, url);
 
       const headers = {
