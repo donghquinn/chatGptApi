@@ -25,7 +25,9 @@ export class GenerateImage {
     const imgUrlArray = [];
 
     try {
-      if (number > 5) {
+      if (number >= 5) {
+        ImageLogger.info('You Used Over Number. No More than 4 requests');
+
         return ['Too many Requests. No more than 4'];
       }
 
@@ -48,7 +50,9 @@ export class GenerateImage {
 
       const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
 
-      ImageLogger.debug('We Received Data: %o', { response });
+      if (!response || response === undefined) {
+        return 'Receive';
+      }
 
       const imgData = response.data;
 
