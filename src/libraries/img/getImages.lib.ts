@@ -56,7 +56,9 @@ export class GenerateImage {
 
       imgUrlArray.push(...imgData);
 
-      await this.prisma.image.create({ data: { prompt, size, number, img: imgUrlArray.toString() } });
+      for (let i = 0; i < imgData.length; i += 1) {
+        await this.prisma.image.create({ data: { prompt, size, number, img: imgData[i].url! } });
+      }
 
       return imgUrlArray;
     } catch (error) {
