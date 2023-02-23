@@ -48,11 +48,13 @@ export class GenerateImage {
 
       const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
 
-      const { data } = response;
+      ImageLogger.debug('We Received Data: %o', { response });
 
-      ImageLogger.info('Data: %o', { data });
+      const imgData = response.data;
 
-      imgUrlArray.push(...data);
+      ImageLogger.info('Data: %o', { imgData });
+
+      imgUrlArray.push(...imgData);
 
       await this.prisma.image.create({ data: { prompt, size, number, img: imgUrlArray.toString() } });
 
