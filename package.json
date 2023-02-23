@@ -2,8 +2,9 @@
   "name": "chatGptImage",
   "version": "1.5.0",
   "main": "app.ts",
-  "license": "MIT",
+  "license": "ISC",
   "type": "module",
+  "author": "donghquinn",
   "scripts": {
     "dev": "NODE_ENV=development nodemon --exec node -r  ts-node/register -r dotenv/config --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/app.ts",
     "build": "NODE_ENV=development tsc --project tsconfig.json --diagnostics -p tsconfig.json",
