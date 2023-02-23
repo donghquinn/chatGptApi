@@ -25,6 +25,12 @@ export class GenerateImage {
     const imgUrlArray = [];
 
     try {
+      if (number >= 5) {
+        ImageLogger.info('You Used Over Number. No More than 4 requests');
+
+        return ['Too many Requests. No more than 4'];
+      }
+
       const { token: validatedToken, url: validatedUrl } = await tokenAndUrlValidator(token, url);
 
       const headers = {
@@ -44,13 +50,19 @@ export class GenerateImage {
 
       const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
 
-      const { data } = response;
+      if (!response || response === undefined) {
+        return 'Receive';
+      }
 
-      ImageLogger.info('Data: %o', { data });
+      const imgData = response.data;
 
-      imgUrlArray.push(...data);
+      ImageLogger.info('Data: %o', { imgData });
 
-      await this.prisma.history.create({ data: { prompt, size, number, img: imgUrlArray.toString() } });
+      imgUrlArray.push(...imgData);
+
+      for (let i = 0; i < imgData.length; i += 1) {
+        await this.prisma.image.create({ data: { prompt, size, number, img: imgData[i].url! } });
+      }
 
       return imgUrlArray;
     } catch (error) {
