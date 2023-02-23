@@ -21,6 +21,5 @@ COPY . .
 
 RUN yarn install
 
-RUN yarn run migrate
 
 ENTRYPOINT ["yarn", "start"]
