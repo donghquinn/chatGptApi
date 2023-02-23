@@ -21,7 +21,7 @@ services:
     env_file:
       - .env
     expose:
-      - 5864
+      - 5543
     volumes:
       - ./logs:/home/node/logs
     networks:
