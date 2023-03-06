@@ -5,7 +5,7 @@ import { ImagesResponse } from 'openai';
 import { SizeTypes } from 'types/request.types';
 import { ImageLogger } from 'utilities/logger.utils';
 import { tokenAndUrlValidator } from 'validators/generate.validator';
-import { PrismaLibrary } from './prisma/prisma.lib';
+import { PrismaLibrary } from '../common/prisma/prisma.lib';
 
 /**
  * 이미지 생성 요청
