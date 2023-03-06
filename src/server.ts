@@ -1,12 +1,12 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { ImageModule } from 'module/image.module';
+import { AppModule } from 'module/app.module';
 
 export const bootstrap = async () => {
   const port = process.env.APP_PORT!;
 
-  const app = await NestFactory.create<NestExpressApplication>(ImageModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableVersioning();
   app.useBodyParser('json');
