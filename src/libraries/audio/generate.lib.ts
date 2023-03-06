@@ -40,7 +40,7 @@ export class GenerateAudio {
       const transalation = response.text;
 
       await this.prisma.audio.create({
-        data: { prompt: prompt!, response_format: response_format!, response: transalation },
+        data: { file, prompt, response_format, response: transalation },
       });
 
       return transalation;
