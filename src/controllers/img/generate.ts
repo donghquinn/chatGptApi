@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { SetErrorResponse, SetResponse } from 'dto/response.dto';
 import { GenerateImage } from 'libraries/img/getImages.lib';
-import { RequestTypes } from 'types/request.types';
+import { ImageRequestTypes } from 'types/request.types';
 import { imageBuildValidator } from 'validators/request.validator';
 
 @Controller('img')
@@ -9,7 +9,7 @@ export class ImageController {
   constructor(private readonly generateImage: GenerateImage) {}
 
   @Post('/generate')
-  async generateImageRoute(@Body() request: RequestTypes) {
+  async generateImageRoute(@Body() request: ImageRequestTypes) {
     try {
       const { prompt, number, size } = await imageBuildValidator(request);
 
