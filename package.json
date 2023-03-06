@@ -16,7 +16,7 @@
     "@nestjs/common": "^9.3.9",
     "@nestjs/core": "^9.3.9",
     "@nestjs/platform-express": "^9.3.9",
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^4.11.0",
     "axios": "^1.2.2",
     "dotenv": "^16.0.3",
     "helmet": "^6.0.1",
