@@ -17,12 +17,17 @@ export interface KeyableObject {
   [key: string]: any;
 }
 
-export interface RequestTypes {
+export interface ImageRequestTypes {
   prompt: string;
   n: number;
   size: SizeTypes;
 }
 
+export interface TranslateRequestTypes {
+  file: string;
+  prompt?: string;
+  response_format?: string;
+}
 export interface RequestValidateType {
   prompt: string;
   number: number;
