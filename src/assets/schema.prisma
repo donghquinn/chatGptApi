@@ -22,9 +22,9 @@ model Image {
 
 model Audio {
   uuid            String   @id @unique @default(uuid())
-  prompt          String
   file            String
-  response_format String
+  prompt          String?
+  response_format String?
   response        String
   user            Users[]
   created         DateTime @default(now())
