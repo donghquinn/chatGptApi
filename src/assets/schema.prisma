@@ -20,12 +20,24 @@ model Image {
   created DateTime @default(now())
 }
 
+model Audio {
+  uuid            String   @id @unique @default(uuid())
+  prompt          String
+  file            String
+  response_format String
+  response        String
+  user            Users[]
+  created         DateTime @default(now())
+}
+
 model Users {
-  uuid     String   @id @unique @default(uuid())
-  clientid String
-  history  Image    @relation(fields: [clientid], references: [uuid])
-  created  DateTime @default(now())
-  updated  DateTime @updatedAt
+  uuid      String   @id @unique @default(uuid())
+  clientid  String
+  history   Image    @relation(fields: [clientid], references: [uuid])
+  created   DateTime @default(now())
+  updated   DateTime @updatedAt
+  Audio     Audio?   @relation(fields: [audioUuid], references: [uuid])
+  audioUuid String?
 }
 
 enum RoleEnumType {
