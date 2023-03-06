@@ -9,7 +9,7 @@ export class GenerateAudio {
 
   async transaltion(file: string, prompt?: string) {
     try {
-      const url = process.env.CHATGPT_URL!;
+      const url = process.env.CHATGPT_AUDIO_URL!;
       const token = process.env.CHATGPT_API_TOKEN!;
 
       const { token: validatedToken, url: validatedUrl } = await tokenAndUrlValidator(token, url);

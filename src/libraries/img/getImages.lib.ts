@@ -19,7 +19,7 @@ export class GenerateImage {
   constructor(private prisma: PrismaLibrary) {}
 
   async requestGenerateImage(prompt: string, number: number, size: SizeTypes) {
-    const url = process.env.CHATGPT_URL!;
+    const url = process.env.CHATGPT_IMAGE_URL!;
     const token = process.env.CHATGPT_API_TOKEN!;
 
     const imgUrlArray = [];
