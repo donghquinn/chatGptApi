@@ -51,7 +51,7 @@ export class GenerateImage {
       const response = (await (await fetch(validatedUrl, options)).json()) as ImagesResponse;
 
       if (!response || response === undefined) {
-        return 'Receive';
+        return ['Receive'];
       }
 
       const imgData = response.data;
