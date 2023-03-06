@@ -3,7 +3,7 @@ import { ImageError } from 'error/img.error';
 import fetch from 'node-fetch';
 import { ImagesResponse } from 'openai';
 import { SizeTypes } from 'types/request.types';
-import { ImageLogger } from 'utilities/logger.utils';
+import { ImageLogger, Logger } from 'utilities/logger.utils';
 import { tokenAndUrlValidator } from 'validators/generate.validator';
 import { PrismaLibrary } from '../common/prisma/prisma.lib';
 
@@ -53,6 +53,8 @@ export class GenerateImage {
       if (!response || response === undefined) {
         return ['Receive'];
       }
+
+      ImageLogger.debug('Image Raw Reseponse: %o', { response });
 
       const imgData = response.data;
 
